@@ -8,7 +8,7 @@ export default class Participant extends Component {
     this.onSubmit = this.onSubmit.bind(this);
 
     this.state = {
-        name: '',
+        parName: '',
         wins: 0
     }
 
@@ -19,7 +19,7 @@ export default class Participant extends Component {
     e.preventDefault();
 
     const newParticipant = {
-    name: this.state.name,
+    parName: this.state.parName,
     wins: this.state.wins
     }
 
@@ -31,7 +31,7 @@ export default class Participant extends Component {
 
   onChangeName(e) {
     this.setState({
-        name: e.target.value
+        parName: e.target.value
     })
   }
   
@@ -43,7 +43,7 @@ export default class Participant extends Component {
                 <label>Participant or Team Name: </label>
                 <input type="text"
                 required
-                value={this.state.name}
+                value={this.state.parName}
                 onChange={this.onChangeName}
                 />
             </div>
