@@ -1,5 +1,6 @@
+import axios, { post } from 'axios';
 import React, { Component } from 'react';
-
+import { CSVReader } from 'react-papaparse';
 
 export default class management extends Component {
   constructor(props) {
@@ -19,6 +20,9 @@ export default class management extends Component {
     }
   }
     
+  
+
+  
   onChangeName(submission) {
     this.setState({
       username: submission.target.value
@@ -56,7 +60,6 @@ export default class management extends Component {
       console.log(contestant);
     }
   
-
   render() {
     return (
 
@@ -76,10 +79,21 @@ export default class management extends Component {
             <p><label>Color:</label>
             <input type ="text"></input></p>
 
-            
+            <h2>Displaying Contestants Placeholders</h2>
           </div>
         </form>
+        <CSVReader
+  onDrop={this.handleOnDrop}
+  onError={this.handleOnError}
+  style={{}}
+  config={{}}
+  addRemoveButton
+  onRemoveFile={this.handleOnRemoveFile}
+>
+  <span>Upload CSV File.</span>
+</CSVReader>
       </div>
     )
+
   }
 }
