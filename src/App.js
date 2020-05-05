@@ -9,6 +9,7 @@ import Participant from "./components/participant.component";
 import Match from "./components/match.component";
 import DisplayBracket from "./components/tournament-bracket.component"
 import management from "./components/management.component";
+import HomePage from "./components/home-page.component";
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
      <div className="container">
        <Navbar />
         <br/>
+        <Route path="/" exact component={HomePage} />
         <Route path="/create" component={CreateTournament} />
         <Route path="/participant" component={Participant} />
         <Route path="/match" component={Match} />
