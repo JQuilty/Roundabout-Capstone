@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const userSchema = new Schema({
+const contestantSchema = new Schema({
     name: {
         type: String,
         required: true,
@@ -17,21 +17,19 @@ const userSchema = new Schema({
         minlength: 3
     },
     height: {
-        type: int,
+        type: Number,
         requied: false
     },
     picture: {
-        type: object,
+        type: Object,
         required: false
     },
     color: {
-        type: string,
-        required: true,
+        type: String,
+        required: false,
         minlength: 7
     }
+});
 
-
-})
-
-const Contestant = mongoose.model('Contestant', userSchema);
+const Contestant = mongoose.model('Contestant', contestantSchema);
 module.exports = Contestant;

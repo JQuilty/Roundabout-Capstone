@@ -1,17 +1,18 @@
 const router = require('express').Router();
-let Contestant = require('..models/contestant.model.js');
+let Tournament = require('../models/tournament.model');
 
 router.route('/').get((req, res) => {
-    Contestant.find()
-    .then(Contestant => res.json(tournamContestantent))
+    Tournament.find()
+    .then(tournament => res.json(tournament))
     .catch(err => res.status(400).json('Error Message ' + err));
 });
 
 router.route('/add').post((req, res) => {
-    const username = req.body.username;
-    const newUser = new username({username});
-    newUser.save()
-    .then(() => res.json('Added New User'))
+    const name = req.body.name;
+    
+    const newTournament = new Tournament({name});
+    newTournament.save()
+    .then(() => res.json('Added New Event'))
     .catch(err => res.status(400).json('Error Message: ' + err));
 });
 
