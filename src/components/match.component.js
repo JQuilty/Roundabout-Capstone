@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import Participant from "./participant.component";
 
 
 export default class Match extends Component {
