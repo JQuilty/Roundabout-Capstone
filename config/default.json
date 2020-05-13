@@ -1,3 +1,4 @@
 {
-    "mongoURI": "mongodb+srv://roundaboutuser2:roundabout@cluster0-mkepl.gcp.mongodb.net/test?retryWrites=true&w=majority"
+    "mongoURI": "mongodb+srv://roundaboutuser2:roundabout@cluster0-mkepl.gcp.mongodb.net/test?retryWrites=true&w=majority",
+    "jwtSecret": "mysecrettoken"
 }

@@ -27,13 +27,23 @@
 
 const express = require('express');
 const connectDB = require('./config/db');
+//const path = require('path');
 
 const app = express();
 
 // Connect Database
 connectDB();
 
-app.get('/', (req, res) => res.send('API running'));
+// Init Middleware
+app.use(express.json({extended: false}))
+
+app.get('/', (req, res) => res.send('api running'));
+
+// Define routes
+app.use('/api/users', require('./routes/api/users'));
+// app.use('/api/auth', require('./routes/api/auth'));
+// app.use('/api/tournament', require('./routes/api/tournament'));
+// app.use('/api/contestant', require('./routes/api/contestant'));
 
 const PORT = process.env.PORT || 5500;
 
