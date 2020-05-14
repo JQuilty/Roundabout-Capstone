@@ -8,6 +8,7 @@ import Alert from './components/layout/Alert';
 import Profile from './components/profile/Profile';
 import Tournaments from './components/tournaments/Tournaments';
 import PrivateRoute from './components/routing/PrivateRoute';
+import CreateTournament from './components/tournament-forms/CreateTournament';
 import './App.css';
 
 // Redux
@@ -38,6 +39,7 @@ const App = () => {
             <Route exact path='/login' component = {Login} />
             <Route exact path='/tournaments' component = {Tournaments} />
             <PrivateRoute exact path='/profile' component = {Profile} />
+            <PrivateRoute exact path='/create-tournament' component = {CreateTournament} />
             {/* <Route exact path='/profiles' component = {Profiles} />
             <Route exact path='/profile/:id' component = {Profile} />
             <PrivateRoute exact path='/dashboard' component = {Dashboard} /> 
