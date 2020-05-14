@@ -23,7 +23,7 @@ router.post('/', [ auth, [
             const user = await User.findById(req.user.id).select('-password');
             
             const newTournament = new Tournament({
-                name: user.name,
+                name: req.body.name,
                 location: req.body.location,
                 user: req.user.id
             });
