@@ -1,7 +1,7 @@
 import React, { Fragment, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-// import TournamentItem from './TournamentItem';
+import TournamentItem from './TournamentItem';
 // import TournamentForm from './TournamentForm';
 import { getTournaments } from '../../actions/tournament';
 
@@ -14,14 +14,13 @@ const Tournaments = ({ getTournaments, tournament: { tournaments } }) => {
     <Fragment>
       <h1 className="large text-primary">Tournaments</h1>
       <p className="lead">
-        <i className="fas fa-user" /> Welcome to the community
+        <i className="fas fa-user" /> View tournaments in progress
       </p>
-      {/* <TournamentForm />
       <div className="tournaments">
         {tournaments.map((tournament) => (
           <TournamentItem key={tournament._id} tournament={tournament} />
         ))}
-      </div> */}
+      </div>
     </Fragment>
   );
 };

@@ -7,6 +7,7 @@ import Login from './components/auth/Login';
 import Alert from './components/layout/Alert';
 import Profile from './components/profile/Profile';
 import Tournaments from './components/tournaments/Tournaments';
+import Tournament from './components/tournament/Tournament';
 import PrivateRoute from './components/routing/PrivateRoute';
 import CreateTournament from './components/tournament-forms/CreateTournament';
 import './App.css';
@@ -38,6 +39,7 @@ const App = () => {
             <Route exact path='/register' component = {Register} />
             <Route exact path='/login' component = {Login} />
             <Route exact path='/tournaments' component = {Tournaments} />
+            <Route exact path='/tournaments/:id' component = {Tournament} />
             <PrivateRoute exact path='/profile' component = {Profile} />
             <PrivateRoute exact path='/create-tournament' component = {CreateTournament} />
             {/* <Route exact path='/profiles' component = {Profiles} />

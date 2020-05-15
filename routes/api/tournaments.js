@@ -78,7 +78,7 @@ router.get('/:id', auth, async (req, res) => {
 // @access   Private
 router.delete('/:id', auth, async (req, res) => {
     try {
-        const tournament = await Tournamnet.findById(req.params.id);
+        const tournament = await Tournament.findById(req.params.id);
 
         if (!tournament) {
             return res.status(404).json({ msg: 'Tournament not found' });
