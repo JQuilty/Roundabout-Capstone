@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+import { Bracket } from 'react-tournament-bracket';
+import { render } from 'react-dom';
 
 export default class HomePage extends Component {
     render() {
