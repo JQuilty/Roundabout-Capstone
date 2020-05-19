@@ -58,6 +58,9 @@ router.get('/:id', auth, async (req, res) => {
     try {
         const tournament = await Tournament.findById(req.params.id);
 
+        
+        console.log(tournament);
+        
         if (!tournament) {
             return res.status(404).json({ msg: 'Tournament not found' });
         }
@@ -79,6 +82,7 @@ router.get('/:id', auth, async (req, res) => {
 router.delete('/:id', auth, async (req, res) => {
     try {
         const tournament = await Tournament.findById(req.params.id);
+
 
         if (!tournament) {
             return res.status(404).json({ msg: 'Tournament not found' });
