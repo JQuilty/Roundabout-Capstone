@@ -13,7 +13,7 @@ const TournamentItem = ({
 }) => (
     <div className='post bg-white p-1 my-1'>
       <div>
-        <Link to={`/tournaments/${user}`}>
+        <Link to={`/tournaments/${_id}`}>
           <img className='round-img' src={null} alt='' />
           <h4>{name}</h4>
         </Link>

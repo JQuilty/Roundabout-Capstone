@@ -3,20 +3,24 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 // import TournamentForm from './TournamentForm';
 import { getTournament } from '../../actions/tournament';
+import Spinner from '../layout/Spinner';
 
-const Tournament = ({ getTournament, tournament: { tournament } }) => {
+const Tournament = ({ getTournament, tournament: { tournament, loading }, match }) => {
     useEffect(() => {
-      getTournament(tournament);
+      getTournament(match.params.id);
     }, [getTournament]);
   
-    return (
+    return loading || tournament === null ? (
+      <Spinner />
+    ) : (
       <Fragment>
         <h1 className="large text-primary">Tournaments</h1>
         <p className="lead">
           <i className="fas fa-user" /> View tournaments in progress
         </p>
         <div className="tournaments">
-          {tournament}
+          {tournament.name}
+          test
         </div>
       </Fragment>
     );
