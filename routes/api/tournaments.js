@@ -25,7 +25,8 @@ router.post('/', [ auth, [
             const newTournament = new Tournament({
                 name: req.body.name,
                 location: req.body.location,
-                user: req.user.id
+                user: req.user.id,
+                participants: []
             });
 
             const tournament = await newTournament.save();
