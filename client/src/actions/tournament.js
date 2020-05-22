@@ -5,7 +5,8 @@ import {
     TOURNAMENT_ERROR,
     DELETE_TOURNAMENT,
     ADD_TOURNAMENT,
-    GET_TOURNAMENT
+    GET_TOURNAMENT,
+    ADD_CONTESTANT
 } from './types';
 
 // Get Tournaments
@@ -76,6 +77,31 @@ export const getTournament = id => async dispatch => {
     
         dispatch({
             type: GET_TOURNAMENT,
+            payload: res.data
+        });
+    } catch (err) {
+        dispatch({
+            type: TOURNAMENT_ERROR,
+            payload: { msg: err.response.statusText, status: err.response.status }
+        });
+    }
+};
+
+// Add a contestant
+export const addContestant = formData => async dispatch => {
+    console.log("In Actions");
+    try {
+
+        const config = {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        };
+        console.log("trying to post");
+        const res = await axios.post(`/api/tournaments/${formData.id}/contestants`, formData, config);
+    
+        dispatch({
+            type: ADD_CONTESTANT,
             payload: res.data
         });
     } catch (err) {

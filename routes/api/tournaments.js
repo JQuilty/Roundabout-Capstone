@@ -42,6 +42,7 @@ router.post('/', [ auth, [
 // @desc    Get all tournaments
 // @access  Public 
 router.get('/', async (req, res) => {
+    console.log("all tourneys listed");
     try {
         const tournaments = await Tournament.find().sort({ date: -1});
         res.json(tournaments);
@@ -56,7 +57,8 @@ router.get('/', async (req, res) => {
 // @desc     Get tournament by ID
 // @access   Public
 router.get('/:id', auth, async (req, res) => {
-    try {
+    console.log(req.params.id);
+    try{
         const tournament = await Tournament.findById(req.params.id);
 
         if (!tournament) {
@@ -93,6 +95,42 @@ router.delete('/:id', auth, async (req, res) => {
         await tournament.remove();
   
         res.json({ msg: 'Tournament removed' });
+    } catch (err) {
+        console.error(err.message);
+        
+        if (err.kind === 'ObjectId') {
+            return res.status(404).json({ msg: 'Tournament not found' });
+        }
+
+        res.status(500).send('Server Error');
+    }
+});
+
+// @route    Add api/tournaments/:id/contestants
+// @desc     Add a contestant to the tournament
+// @access   Public
+router.post('/:id/contestants', async (req, res) => {
+    try {
+        console.log("router received post");
+        const tournament = await Tournament.findById(req.params.id);
+
+        if (!tournament) {
+            return res.status(404).json({ msg: 'Tournament not found' });
+        }
+  
+        var newParList = tournament.participants;
+        newParList.push(req.body.parName);
+        console.log(newParList);
+  
+        let updateTourn = await Tournament.findOneAndUpdate(
+            { _id: req.params.id},
+            { $set: { participants: newParList }},
+            { returnOriginal: false }
+        );
+        
+        console.log(updateTourn);
+
+        res.json({msg: "Added to the tournament!"});
     } catch (err) {
         console.error(err.message);
         
