@@ -6,6 +6,7 @@ import {
     GET_CONTESTANTS,
     CONTESTANT_ERROR,
     ADD_CONTESTANT,
+    DELETE_CONTESTANT,
     UPDATE_CONTESTANT,
     CLEAR_CONTESTANT
 } from './types';
@@ -69,3 +70,21 @@ export const addContestant = formData => async dispatch => {
     }
   };
 
+// Delete contestant
+export const deleteContestant = id => async dispatch => {
+    try {
+      await axios.delete(`/api/contestants/${id}`);
+  
+      dispatch({
+        type: DELETE_CONTESTANT,
+        payload: id
+      });
+  
+      dispatch(setAlert('Contestant Removed', 'success'));
+    } catch (err) {
+      dispatch({
+        type: CONTESTANT_ERROR,
+        payload: { msg: err.response.statusText, status: err.response.status }
+      });
+    }
+  };
