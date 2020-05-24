@@ -5,7 +5,7 @@ const { check, validationResult } = require('express-validator');
 
 const Contestant = require('../../models/Contestant');
 
-// @route   POST api/contestant
+// @route   POST api/contestants
 // @desc    Create or update a contestant
 // @access  Private
 router.post('/', [ auth, [
@@ -37,12 +37,12 @@ router.post('/', [ auth, [
         }
 });
 
-// @route   GET api/contestant
-// @desc    Get all contestant
+// @route   GET api/contestants
+// @desc    Get all contestants
 // @access  Public 
 router.get('/', async (req, res) => {
     try {
-        const contestant = await Contestant.find().sort({ date: -1});
+        const contestant = await Contestant.find();
         res.json(contestant);
 
     } catch(err) {
@@ -69,6 +69,31 @@ router.get('/:id', auth, async (req, res) => {
         if (err.kind === 'ObjectId') {
             return res.status(404).json({ msg: 'Contestant not found' });
         }
+        res.status(500).send('Server Error');
+    }
+});
+
+// @route    DELETE api/contestants/:id
+// @desc     Delete a contestant
+// @access   Private
+router.delete('/:id', auth, async (req, res) => {
+    try {
+        const contestant = await Contestant.findById(req.params.id);
+
+        if (!contestant) {
+            return res.status(404).json({ msg: 'Contestant not found' });
+        }
+  
+        await contestant.remove();
+  
+        res.json({ msg: 'Contestant removed' });
+    } catch (err) {
+        console.error(err.message);
+        
+        if (err.kind === 'ObjectId') {
+            return res.status(404).json({ msg: 'Contestant not found' });
+        }
+
         res.status(500).send('Server Error');
     }
 });
