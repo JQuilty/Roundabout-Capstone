@@ -13,6 +13,8 @@ import Tournament from './components/tournament/Tournament';
 import Contestant from './components/contestant/Contestant';
 import PrivateRoute from './components/routing/PrivateRoute';
 import CreateTournament from './components/tournament-forms/CreateTournament';
+import Management from './components/management/management';
+import Spectator from './components/spectator/spectator';
 import './App.css';
 
 // Redux
