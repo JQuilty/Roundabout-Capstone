@@ -4,6 +4,9 @@ import { connect } from 'react-redux';
 // import TournamentForm from './TournamentForm';
 import { getTournament } from '../../actions/tournament';
 import Spinner from '../layout/Spinner';
+import * as JSOG from 'jsog';
+import * as _ from 'underscore';
+
 
 const Tournament = ({ getTournament, tournament: { tournament, loading }, match }) => {
     useEffect(() => {
