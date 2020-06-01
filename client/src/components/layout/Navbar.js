@@ -9,6 +9,9 @@ const Navbar = ({ auth: { isAuthenticated, loading }, logout }) => {
     const authLinks = (
         <ul>
           <li>
+            <Link to='/tournamentdisplay/pub/index.html'>Brackets</Link>
+          </li>
+          <li>
             <Link to='/tournaments'>Tournaments</Link>
           </li>
           <li>
