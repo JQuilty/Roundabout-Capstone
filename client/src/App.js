@@ -15,6 +15,7 @@ import PrivateRoute from './components/routing/PrivateRoute';
 import CreateTournament from './components/tournament-forms/CreateTournament';
 import Management from './components/management/management';
 import Spectator from './components/spectator/spectator';
+import Display from './components/display/display';
 import './App.css';
 
 // Redux
@@ -50,6 +51,7 @@ const App = () => {
             <PrivateRoute exact path='/create-tournament' component = {CreateTournament} />
             <PrivateRoute exact path='/create-profile' component = {CreateProfile} />
             <PrivateRoute exact path='/edit-profile' component = {EditProfile} />  
+            <PrivateRoute exact path='/display' component = {Display} />  
             {/* <Route exact path='/profiles' component = {Profiles} />
             <Route exact path='/profile/:id' component = {Profile} />
             <PrivateRoute exact path='/dashboard' component = {Dashboard} /> 
