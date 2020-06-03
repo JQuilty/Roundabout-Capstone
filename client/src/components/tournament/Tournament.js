@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 // import TournamentForm from './TournamentForm';
 import { getTournament, addContestant } from '../../actions/tournament';
 import Spinner from '../layout/Spinner';
+import ContestantTile from './ContestantTile';
 
 const Tournament = ({ getTournament, tournament: { tournament, loading }, match }) => {
     useEffect(() => {
@@ -90,8 +91,10 @@ const Tournament = ({ getTournament, tournament: { tournament, loading }, match 
                 <i className='fas fa-times' />
               </button>
         </form>
-        <div>
-          Participants List:
+        <div id="participants">
+          {tournament.participants.map((contestant) => (
+          < ContestantTile key={contestant._id} contestant={contestant} />
+          ))}
         </div>
       </Fragment>
     );
