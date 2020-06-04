@@ -4,6 +4,7 @@ const { check, validationResult } = require('express-validator');
 const auth = require('../../middleware/auth');
 
 const Tournament = require('../../models/Tournament');
+const Contestant = require('../../models/Contestant');
 const User = require('../../models/User');
 
 // @route   POST api/tournaments
@@ -25,7 +26,8 @@ router.post('/', [ auth, [
             const newTournament = new Tournament({
                 name: req.body.name,
                 location: req.body.location,
-                user: req.user.id
+                user: req.user.id,
+                participants: []
             });
 
             const tournament = await newTournament.save();
@@ -41,6 +43,7 @@ router.post('/', [ auth, [
 // @desc    Get all tournaments
 // @access  Public 
 router.get('/', async (req, res) => {
+    console.log("all tourneys listed");
     try {
         const tournaments = await Tournament.find().sort({ date: -1});
         res.json(tournaments);
@@ -55,7 +58,8 @@ router.get('/', async (req, res) => {
 // @desc     Get tournament by ID
 // @access   Public
 router.get('/:id', auth, async (req, res) => {
-    try {
+    console.log(req.params.id);
+    try{
         const tournament = await Tournament.findById(req.params.id);
 
         if (!tournament) {
@@ -92,6 +96,56 @@ router.delete('/:id', auth, async (req, res) => {
         await tournament.remove();
   
         res.json({ msg: 'Tournament removed' });
+    } catch (err) {
+        console.error(err.message);
+        
+        if (err.kind === 'ObjectId') {
+            return res.status(404).json({ msg: 'Tournament not found' });
+        }
+
+        res.status(500).send('Server Error');
+    }
+});
+
+// @route    Add api/tournaments/:id/contestants
+// @desc     Add a contestant to the tournament
+// @access   Public
+router.post('/:id/contestants', async (req, res) => {
+    try {
+        console.log("router received post");
+        const tournament = await Tournament.findById(req.params.id);
+
+
+
+        if (!tournament) {
+            return res.status(404).json({ msg: 'Tournament not found' });
+        }
+
+        const newContestant = new Contestant({
+            name: req.body.parName,
+            nickname: req.body.nickname,
+            height: req.body.height,
+            picture: req.body.picture,
+            color: req.body.color
+        });
+
+        const contestant = await newContestant.save();
+
+        console.log(contestant._id);
+  
+        var newParList = tournament.participants;
+        newParList.push({name: contestant.name, id: contestant._id});
+        console.log(newParList);
+  
+        let updateTourn = await Tournament.findOneAndUpdate(
+            { _id: req.params.id},
+            { $set: { participants: newParList }},
+            { returnOriginal: false }
+        );
+        
+        console.log(updateTourn);
+
+        res.json(contestant);
     } catch (err) {
         console.error(err.message);
         

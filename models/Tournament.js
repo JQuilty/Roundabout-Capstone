@@ -17,6 +17,10 @@ const TournamentSchema = new Schema({
     location: {
         type: String, 
         required: true 
+    },
+    participants: {
+        type: Array,
+        required: true
     }
 });
 
