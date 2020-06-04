@@ -4,13 +4,10 @@ import { connect } from 'react-redux';
 // import TournamentForm from './TournamentForm';
 import { getTournament, addContestant } from '../../actions/tournament';
 import Spinner from '../layout/Spinner';
-<<<<<<< HEAD
 import * as JSOG from 'jsog';
 import * as _ from 'underscore';
-
-=======
 import ContestantTile from './ContestantTile';
->>>>>>> browchr4-week10
+
 
 const Tournament = ({ getTournament, tournament: { tournament, loading }, match }) => {
     useEffect(() => {
