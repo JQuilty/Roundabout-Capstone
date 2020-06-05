@@ -4,6 +4,7 @@ const { check, validationResult } = require('express-validator');
 const auth = require('../../middleware/auth');
 
 const Tournament = require('../../models/Tournament');
+const Contestant = require('../../models/Contestant');
 const User = require('../../models/User');
 
 // @route   POST api/tournaments
@@ -114,12 +115,26 @@ router.post('/:id/contestants', async (req, res) => {
         console.log("router received post");
         const tournament = await Tournament.findById(req.params.id);
 
+
+
         if (!tournament) {
             return res.status(404).json({ msg: 'Tournament not found' });
         }
+
+        const newContestant = new Contestant({
+            name: req.body.parName,
+            nickname: req.body.nickname,
+            height: req.body.height,
+            picture: req.body.picture,
+            color: req.body.color
+        });
+
+        const contestant = await newContestant.save();
+
+        console.log(contestant._id);
   
         var newParList = tournament.participants;
-        newParList.push(req.body.parName);
+        newParList.push({name: contestant.name, id: contestant._id});
         console.log(newParList);
   
         let updateTourn = await Tournament.findOneAndUpdate(
@@ -130,7 +145,7 @@ router.post('/:id/contestants', async (req, res) => {
         
         console.log(updateTourn);
 
-        res.json({msg: "Added to the tournament!"});
+        res.json(contestant);
     } catch (err) {
         console.error(err.message);
         

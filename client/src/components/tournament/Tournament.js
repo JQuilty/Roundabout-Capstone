@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 // import TournamentForm from './TournamentForm';
 import { getTournament, addContestant } from '../../actions/tournament';
 import Spinner from '../layout/Spinner';
+import ContestantTile from './ContestantTile';
 
 const Tournament = ({ getTournament, tournament: { tournament, loading }, match }) => {
     useEffect(() => {
@@ -12,17 +13,21 @@ const Tournament = ({ getTournament, tournament: { tournament, loading }, match 
 
     const [formData, setFormData] = useState({
       parName: '',
+      nickname: '',
+      height: '',
+      picture: '',
+      color: '',
       id: match.params.id
     });
 
-    const { parName } = formData;
+    const { parName, nickname, height, picture, color } = formData;
   
   const onChange = e =>
       setFormData({ ...formData, [e.target.name]: e.target.value });
       
   const onSubmit = e => {
       e.preventDefault();
-      console.log(formData);
+      console.log(formData)
       addContestant(formData);
   };
   
@@ -50,6 +55,34 @@ const Tournament = ({ getTournament, tournament: { tournament, loading }, match 
           value={parName}
           onChange={e => onChange(e)}
         />
+        <input
+          type='text'
+          placeholder='Nickname or Titles'
+          name='nickname'
+          value={nickname}
+          onChange={e => onChange(e)}
+        />
+        <input
+          type='number'
+          placeholder='Height (in)'
+          name='height'
+          value={height}
+          onChange={e => onChange(e)}
+        />
+        <input
+          type='text'
+          placeholder='Picture placeholder'
+          name='picture'
+          value={picture}
+          onChange={e => onChange(e)}
+        />
+        <input
+          type='text'
+          placeholder='Team Color'
+          name='color'
+          value={color}
+          onChange={e => onChange(e)}
+        />
         <button
                 onClick={() => console.log("button click"), addContestant(formData)}
                 type='button'
@@ -58,9 +91,10 @@ const Tournament = ({ getTournament, tournament: { tournament, loading }, match 
                 <i className='fas fa-times' />
               </button>
         </form>
-        <div>
-          Participants List:
-          {tournament.participants}
+        <div id="participants">
+          {tournament.participants.map((contestant) => (
+          < ContestantTile key={contestant._id} contestant={contestant} />
+          ))}
         </div>
       </Fragment>
     );
