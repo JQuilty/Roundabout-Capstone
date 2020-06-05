@@ -2,15 +2,11 @@ import React, { Fragment, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 // import TournamentForm from './TournamentForm';
-import { getTournament, addContestant } from '../../actions/tournament';
+import { getTournament, addContestant, buildBracket } from '../../actions/tournament';
 import Spinner from '../layout/Spinner';
-<<<<<<< HEAD
 import * as JSOG from 'jsog';
 import * as _ from 'underscore';
-
-=======
 import ContestantTile from './ContestantTile';
->>>>>>> browchr4-week10
 
 const Tournament = ({ getTournament, tournament: { tournament, loading }, match }) => {
     useEffect(() => {
@@ -27,15 +23,23 @@ const Tournament = ({ getTournament, tournament: { tournament, loading }, match 
     });
 
     const { parName, nickname, height, picture, color } = formData;
+
+    const [matchData, setMatchData] = useState({
+      topContestant: '',
+      bottomContestant: '',
+      winner: '',
+      id: match.params.id
+    });
+
+    const { topContestant, bottomContestant, winner } = matchData;
   
-  const onChange = e =>
+    const onChange = e =>
       setFormData({ ...formData, [e.target.name]: e.target.value });
       
-  const onSubmit = e => {
+    const onSubmit = e => {
       e.preventDefault();
-      console.log(formData)
-      addContestant(formData);
-  };
+      console.log("Bracket Building");
+    };
   
     return loading || tournament === null ? (
       <Spinner />
@@ -52,6 +56,11 @@ const Tournament = ({ getTournament, tournament: { tournament, loading }, match 
           {"\n"}
           {"\n"}
         </div>
+        <button
+          onClick={() => console.log("button click"), buildBracket(match.params.id)}>
+          Build Bracket
+          <i className='fas fa-times' />
+        </button>
         <h4>Sign Up For {tournament.name}</h4>
         <form className='form'>
         <input
@@ -92,8 +101,8 @@ const Tournament = ({ getTournament, tournament: { tournament, loading }, match 
         <button
                 onClick={() => console.log("button click"), addContestant(formData)}
                 type='button'
-                className='btn btn-danger'
-              >
+                className='btn btn-simple'
+              >Add to Tournament
                 <i className='fas fa-times' />
               </button>
         </form>

@@ -6,7 +6,8 @@ import {
     DELETE_TOURNAMENT,
     ADD_TOURNAMENT,
     GET_TOURNAMENT,
-    ADD_CONTESTANT
+    ADD_CONTESTANT,
+    ADD_MATCH
 } from './types';
 
 // Get Tournaments
@@ -102,6 +103,30 @@ export const addContestant = formData => async dispatch => {
     
         dispatch({
             type: ADD_CONTESTANT,
+            payload: res.data
+        });
+    } catch (err) {
+        dispatch({
+            type: TOURNAMENT_ERROR,
+            payload: { msg: err.response.statusText, status: err.response.status }
+        });
+    }
+};
+
+// Add a match to the tournament
+export const buildBracket = id => async dispatch => {
+    try {
+
+        const config = {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        };
+        console.log("trying to post");
+        const res = await axios.post(`/api/tournaments/${id}/matches`, config);
+    
+        dispatch({
+            type: ADD_MATCH,
             payload: res.data
         });
     } catch (err) {

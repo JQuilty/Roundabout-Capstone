@@ -6,6 +6,7 @@ const auth = require('../../middleware/auth');
 const Tournament = require('../../models/Tournament');
 const Contestant = require('../../models/Contestant');
 const User = require('../../models/User');
+const Match = require('../../models/Match');
 
 // @route   POST api/tournaments
 // @desc    Create a tournament
@@ -146,6 +147,56 @@ router.post('/:id/contestants', async (req, res) => {
         console.log(updateTourn);
 
         res.json(contestant);
+    } catch (err) {
+        console.error(err.message);
+        
+        if (err.kind === 'ObjectId') {
+            return res.status(404).json({ msg: 'Tournament not found' });
+        }
+
+        res.status(500).send('Server Error');
+    }
+});
+
+// @route    Add api/tournaments/:id/matches
+// @desc     Build the matches for the tournament
+// @access   Public
+router.post('/:id/matches', async (req, res) => {
+    try {
+        console.log("router received match build request");
+        const tournament = await Tournament.findById(req.params.id);
+
+        if (!tournament) {
+            return res.status(404).json({ msg: 'Tournament not found' });
+        }
+
+        //fill in blank spots and shuffle
+
+        var newMatchList = [];
+        var i = 0;
+        while(i < tournament.participants.length){
+            var newMatch = new Match({
+                topContestant: tournament.participants[i],
+                bottomContestant: tournament.participants[i+1],
+                winner: { name: "TBD" }
+            });
+
+            const match = await newMatch.save();
+            newMatchList.push({ topContestant: match.topContestant, bottomContestant: match.bottomContestant, id: match._id});
+            i = i + 2;
+        }
+
+        console.log(newMatchList);
+  
+        let updateTourn = await Tournament.findOneAndUpdate(
+            { _id: req.params.id},
+            { $set: { matches: newMatchList }},
+            { returnOriginal: false }
+        );
+        
+        console.log(updateTourn);
+
+        res.json(updateTourn);
     } catch (err) {
         console.error(err.message);
         

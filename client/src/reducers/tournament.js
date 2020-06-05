@@ -4,7 +4,8 @@ import {
     DELETE_TOURNAMENT,
     ADD_TOURNAMENT,
     GET_TOURNAMENT,
-    ADD_CONTESTANT
+    ADD_CONTESTANT,
+    ADD_MATCH
 } from '../actions/types';
   
   const initialState = {
@@ -31,6 +32,12 @@ export default function(state = initialState, action) {
                 loading: false
             };
         case ADD_CONTESTANT:
+            return {
+                ...state,
+                tournament: payload,
+                loading: false
+            };
+        case ADD_MATCH:
             return {
                 ...state,
                 tournament: payload,
