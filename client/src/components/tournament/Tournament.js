@@ -7,6 +7,7 @@ import Spinner from '../layout/Spinner';
 import * as JSOG from 'jsog';
 import * as _ from 'underscore';
 import ContestantTile from './ContestantTile';
+import MatchTile from './MatchTile';
 
 const Tournament = ({ getTournament, tournament: { tournament, loading }, match }) => {
     useEffect(() => {
@@ -23,15 +24,6 @@ const Tournament = ({ getTournament, tournament: { tournament, loading }, match 
     });
 
     const { parName, nickname, height, picture, color } = formData;
-
-    const [matchData, setMatchData] = useState({
-      topContestant: '',
-      bottomContestant: '',
-      winner: '',
-      id: match.params.id
-    });
-
-    const { topContestant, bottomContestant, winner } = matchData;
   
     const onChange = e =>
       setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -56,8 +48,9 @@ const Tournament = ({ getTournament, tournament: { tournament, loading }, match 
           {"\n"}
           {"\n"}
         </div>
+        
         <button
-          onClick={() => console.log("button click"), buildBracket(match.params.id)}>
+          onClick={() => console.log("button click"), buildBracket(match.params.id), console.log(tournament.matches)}>
           Build Bracket
           <i className='fas fa-times' />
         </button>

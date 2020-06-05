@@ -21,6 +21,10 @@ const TournamentSchema = new Schema({
     participants: {
         type: Array,
         required: true
+    },
+    matches: {
+        type: Array,
+        required: true
     }
 });
 
