@@ -9,6 +9,7 @@ import * as _ from 'underscore';
 import ContestantTile from './ContestantTile';
 import MatchTile from './MatchTile';
 
+
 const Tournament = ({ getTournament, tournament: { tournament, loading }, match }) => {
     useEffect(() => {
       getTournament(match.params.id);
