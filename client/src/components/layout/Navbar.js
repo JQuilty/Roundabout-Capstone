@@ -8,8 +8,14 @@ const Navbar = ({ auth: { isAuthenticated, loading }, logout }) => {
 
     const authLinks = (
         <ul>
+                    <li>
+            <Link to='/display'>Display</Link>
+          </li>
           <li>
             <Link to='/tournaments'>Tournaments</Link>
+          </li>
+          <li>
+            <Link to='/management'>Management</Link>
           </li>
           <li>
             <Link to='/create-tournament'>Organize Event</Link>
@@ -47,7 +53,7 @@ const Navbar = ({ auth: { isAuthenticated, loading }, logout }) => {
     return (
         <nav className="navbar bg-dark">
             <h1>
-                <Link to="/"><i className="fas fa-code"></i> Roundabout</Link>
+                <Link to="/"><i className="fas fa-gamepad"></i> Roundabout</Link>
             </h1>
             {!loading && (<Fragment>{isAuthenticated ? authLinks : guestLinks}</Fragment>)}
         </nav>

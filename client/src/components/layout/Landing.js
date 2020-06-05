@@ -14,11 +14,12 @@ const Landing = ({ isAuthenticated }) => {
             <div className="landing-inner">
                 <h1 className="x-large">Roundabout</h1>
                 <p className="lead">
-                    Host your own tournaments
+                    Tournament Management & Display
                 </p>
                 <div className="buttons">
                     <Link to="/register" className="btn btn-primary">Sign Up</Link>
-                    <Link to="/login" className="btn btn-light">Login</Link>
+                    <Link to="/login" className="btn btn-danger">Login</Link>
+                    <Link to="/spectator" className="btn btn-success">Spectator Mode</Link>
                 </div>
             </div>
         </div>
