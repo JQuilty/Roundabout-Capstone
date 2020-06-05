@@ -6,8 +6,8 @@ import { getTournament, addContestant } from '../../actions/tournament';
 import Spinner from '../layout/Spinner';
 import * as JSOG from 'jsog';
 import * as _ from 'underscore';
-import ContestantTile from './ContestantTile';
 
+import ContestantTile from './ContestantTile';
 
 const Tournament = ({ getTournament, tournament: { tournament, loading }, match }) => {
     useEffect(() => {
